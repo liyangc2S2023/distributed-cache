@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cache_server module &mdash; distributed-cache  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="consistent_hash module" href="consistent_hash.html" />
+    <link rel="prev" title="cache_proxy module" href="cache_proxy.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            distributed-cache
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">lab4</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cache_proxy.html">cache_proxy module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">cache_server module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cache_server.CacheServer"><code class="docutils literal notranslate"><span class="pre">CacheServer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cache_server.CacheServer.cache_operations"><code class="docutils literal notranslate"><span class="pre">CacheServer.cache_operations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cache_server.CacheServer.clear_cache"><code class="docutils literal notranslate"><span class="pre">CacheServer.clear_cache()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cache_server.CacheServer.control"><code class="docutils literal notranslate"><span class="pre">CacheServer.control()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cache_server.CacheServer.register_with_cluster"><code class="docutils literal notranslate"><span class="pre">CacheServer.register_with_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cache_server.CacheServer.run"><code class="docutils literal notranslate"><span class="pre">CacheServer.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cache_server.CacheServer.status"><code class="docutils literal notranslate"><span class="pre">CacheServer.status()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="consistent_hash.html">consistent_hash module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lru_cache.html">lru_cache package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slowdb.html">slowdb module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.html">tests package</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">distributed-cache</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">lab4</a></li>
+      <li class="breadcrumb-item active">cache_server module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/cache_server.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-cache_server">
+<span id="cache-server-module"></span><h1>cache_server module<a class="headerlink" href="#module-cache_server" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="cache_server.CacheServer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cache_server.</span></span><span class="sig-name descname"><span class="pre">CacheServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lru_cache_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slowdb_host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cache_server.html#CacheServer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cache_server.CacheServer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Cache servers are responsible to handle client request passed by cache clusters.</p>
+<p>Each cache server hosts a lru cache to store key-value pairs.
+If a key is not found in the cache, the cache server will try to pass the request to the next cache server in the cluster.
+If the key is not found in the cluster, the cache server will try to get the value from the slowdb.
+Then the responding cache server will store the key-value pair in the cache.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cache_server.CacheServer.cache_operations">
+<span class="sig-name descname"><span class="pre">cache_operations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cache_server.html#CacheServer.cache_operations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cache_server.CacheServer.cache_operations" title="Permalink to this definition"></a></dt>
+<dd><p>handle GET, POST, DELETE requests to the cache server.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cache_server.CacheServer.clear_cache">
+<span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cache_server.html#CacheServer.clear_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cache_server.CacheServer.clear_cache" title="Permalink to this definition"></a></dt>
+<dd><p>Clear the lru cache hosted by the cache server.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cache_server.CacheServer.control">
+<span class="sig-name descname"><span class="pre">control</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cache_server.html#CacheServer.control"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cache_server.CacheServer.control" title="Permalink to this definition"></a></dt>
+<dd><p>Control the cache server to run or stop.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cache_server.CacheServer.register_with_cluster">
+<span class="sig-name descname"><span class="pre">register_with_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cluster_address</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cache_server.html#CacheServer.register_with_cluster"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cache_server.CacheServer.register_with_cluster" title="Permalink to this definition"></a></dt>
+<dd><p>Register the cache server with the cache cluster.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cache_server.CacheServer.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cache_server.html#CacheServer.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cache_server.CacheServer.run" title="Permalink to this definition"></a></dt>
+<dd><p>Run the cache server.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cache_server.CacheServer.status">
+<span class="sig-name descname"><span class="pre">status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cache_server.html#CacheServer.status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cache_server.CacheServer.status" title="Permalink to this definition"></a></dt>
+<dd><p>Get the status of the cache server.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cache_proxy.html" class="btn btn-neutral float-left" title="cache_proxy module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="consistent_hash.html" class="btn btn-neutral float-right" title="consistent_hash module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, tianyuze.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

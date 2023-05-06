@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tests package &mdash; distributed-cache  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="slowdb module" href="slowdb.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            distributed-cache
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">lab4</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cache_proxy.html">cache_proxy module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cache_server.html">cache_server module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="consistent_hash.html">consistent_hash module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lru_cache.html">lru_cache package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slowdb.html">slowdb module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">tests package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tests.helper">tests.helper module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tests.helper.clear_data"><code class="docutils literal notranslate"><span class="pre">clear_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.helper.print_error_message"><code class="docutils literal notranslate"><span class="pre">print_error_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.helper.put_and_get_random_keys"><code class="docutils literal notranslate"><span class="pre">put_and_get_random_keys()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tests-test-ch-distribution-module">tests.test_ch_distribution module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tests.test_consistent_hashing">tests.test_consistent_hashing module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tests.test_consistent_hashing.test_add_node"><code class="docutils literal notranslate"><span class="pre">test_add_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.test_consistent_hashing.test_consistent_hashing"><code class="docutils literal notranslate"><span class="pre">test_consistent_hashing()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.test_consistent_hashing.test_get_node_after_node_removal"><code class="docutils literal notranslate"><span class="pre">test_get_node_after_node_removal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.test_consistent_hashing.test_get_node_returns_correct_node"><code class="docutils literal notranslate"><span class="pre">test_get_node_returns_correct_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.test_consistent_hashing.test_remove_node"><code class="docutils literal notranslate"><span class="pre">test_remove_node()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tests-test-fault-tolerance-module">tests.test_fault_tolerance module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tests-test-final-module">tests.test_final module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tests-test-get-key-module">tests.test_get_key module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tests.test_init">tests.test_init module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tests.test_init.test_cache_ports_registered"><code class="docutils literal notranslate"><span class="pre">test_cache_ports_registered()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tests.test_lru_cache">tests.test_lru_cache module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tests.test_lru_cache.test_add_new_key"><code class="docutils literal notranslate"><span class="pre">test_add_new_key()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.test_lru_cache.test_delete"><code class="docutils literal notranslate"><span class="pre">test_delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.test_lru_cache.test_get_key"><code class="docutils literal notranslate"><span class="pre">test_get_key()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.test_lru_cache.test_len"><code class="docutils literal notranslate"><span class="pre">test_len()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.test_lru_cache.test_lru_cache"><code class="docutils literal notranslate"><span class="pre">test_lru_cache()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.test_lru_cache.test_remove_lru"><code class="docutils literal notranslate"><span class="pre">test_remove_lru()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.test_lru_cache.test_update_key"><code class="docutils literal notranslate"><span class="pre">test_update_key()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tests-test-put-key-module">tests.test_put_key module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tests.test_replication">tests.test_replication module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tests.test_replication.test_replication"><code class="docutils literal notranslate"><span class="pre">test_replication()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tests.test_slowdb">tests.test_slowdb module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tests.test_slowdb.test_slowdb"><code class="docutils literal notranslate"><span class="pre">test_slowdb()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">distributed-cache</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">lab4</a></li>
+      <li class="breadcrumb-item active">tests package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tests.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tests-package">
+<h1>tests package<a class="headerlink" href="#tests-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-tests.helper">
+<span id="tests-helper-module"></span><h2>tests.helper module<a class="headerlink" href="#module-tests.helper" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.helper.clear_data">
+<span class="sig-prename descclassname"><span class="pre">tests.helper.</span></span><span class="sig-name descname"><span class="pre">clear_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_ports</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/helper.html#clear_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.helper.clear_data" title="Permalink to this definition"></a></dt>
+<dd><p>Helper to clear the data in slowdb and cache servers
+:param cache_ports: list of cache ports
+:return: None</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.helper.print_error_message">
+<span class="sig-prename descclassname"><span class="pre">tests.helper.</span></span><span class="sig-name descname"><span class="pre">print_error_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/helper.html#print_error_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.helper.print_error_message" title="Permalink to this definition"></a></dt>
+<dd><p>Helper to print the error message in yellow color
+:param message: error message
+:return: None</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.helper.put_and_get_random_keys">
+<span class="sig-prename descclassname"><span class="pre">tests.helper.</span></span><span class="sig-name descname"><span class="pre">put_and_get_random_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cache_cluster_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/helper.html#put_and_get_random_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.helper.put_and_get_random_keys" title="Permalink to this definition"></a></dt>
+<dd><p>Helper to put and get random keys to the cache cluster
+:param cache_cluster_url: url of the cache cluster
+:param num_keys: number of keys to put and get
+:return: a dictionary of keys and values</p>
+</dd></dl>
+
+</section>
+<section id="tests-test-ch-distribution-module">
+<h2>tests.test_ch_distribution module<a class="headerlink" href="#tests-test-ch-distribution-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-tests.test_consistent_hashing">
+<span id="tests-test-consistent-hashing-module"></span><h2>tests.test_consistent_hashing module<a class="headerlink" href="#module-tests.test_consistent_hashing" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_consistent_hashing.test_add_node">
+<span class="sig-prename descclassname"><span class="pre">tests.test_consistent_hashing.</span></span><span class="sig-name descname"><span class="pre">test_add_node</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_consistent_hashing.html#test_add_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_consistent_hashing.test_add_node" title="Permalink to this definition"></a></dt>
+<dd><p>Test adding a node to the hash ring.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_consistent_hashing.test_consistent_hashing">
+<span class="sig-prename descclassname"><span class="pre">tests.test_consistent_hashing.</span></span><span class="sig-name descname"><span class="pre">test_consistent_hashing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_consistent_hashing.html#test_consistent_hashing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_consistent_hashing.test_consistent_hashing" title="Permalink to this definition"></a></dt>
+<dd><p>Test the consistent hashing basic functionalities.
+:return: 10 if pass, 0 if fail</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_consistent_hashing.test_get_node_after_node_removal">
+<span class="sig-prename descclassname"><span class="pre">tests.test_consistent_hashing.</span></span><span class="sig-name descname"><span class="pre">test_get_node_after_node_removal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_consistent_hashing.html#test_get_node_after_node_removal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_consistent_hashing.test_get_node_after_node_removal" title="Permalink to this definition"></a></dt>
+<dd><p>Test that get_node returns the correct node for a given key after a node is removed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_consistent_hashing.test_get_node_returns_correct_node">
+<span class="sig-prename descclassname"><span class="pre">tests.test_consistent_hashing.</span></span><span class="sig-name descname"><span class="pre">test_get_node_returns_correct_node</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_consistent_hashing.html#test_get_node_returns_correct_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_consistent_hashing.test_get_node_returns_correct_node" title="Permalink to this definition"></a></dt>
+<dd><p>Test that get_node returns the correct node for a given key.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_consistent_hashing.test_remove_node">
+<span class="sig-prename descclassname"><span class="pre">tests.test_consistent_hashing.</span></span><span class="sig-name descname"><span class="pre">test_remove_node</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_consistent_hashing.html#test_remove_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_consistent_hashing.test_remove_node" title="Permalink to this definition"></a></dt>
+<dd><p>Test removing a node from the hash ring.</p>
+</dd></dl>
+
+</section>
+<section id="tests-test-fault-tolerance-module">
+<h2>tests.test_fault_tolerance module<a class="headerlink" href="#tests-test-fault-tolerance-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="tests-test-final-module">
+<h2>tests.test_final module<a class="headerlink" href="#tests-test-final-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="tests-test-get-key-module">
+<h2>tests.test_get_key module<a class="headerlink" href="#tests-test-get-key-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-tests.test_init">
+<span id="tests-test-init-module"></span><h2>tests.test_init module<a class="headerlink" href="#module-tests.test_init" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_init.test_cache_ports_registered">
+<span class="sig-prename descclassname"><span class="pre">tests.test_init.</span></span><span class="sig-name descname"><span class="pre">test_cache_ports_registered</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_init.html#test_cache_ports_registered"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_init.test_cache_ports_registered" title="Permalink to this definition"></a></dt>
+<dd><p>Test if all cache servers are registered by cache cluster
+:return: 10 if pass, 0 if fail</p>
+</dd></dl>
+
+</section>
+<section id="module-tests.test_lru_cache">
+<span id="tests-test-lru-cache-module"></span><h2>tests.test_lru_cache module<a class="headerlink" href="#module-tests.test_lru_cache" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_lru_cache.test_add_new_key">
+<span class="sig-prename descclassname"><span class="pre">tests.test_lru_cache.</span></span><span class="sig-name descname"><span class="pre">test_add_new_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_lru_cache.html#test_add_new_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_lru_cache.test_add_new_key" title="Permalink to this definition"></a></dt>
+<dd><p>Test adding a new key-value pair to the cache.
+:return: None</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_lru_cache.test_delete">
+<span class="sig-prename descclassname"><span class="pre">tests.test_lru_cache.</span></span><span class="sig-name descname"><span class="pre">test_delete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_lru_cache.html#test_delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_lru_cache.test_delete" title="Permalink to this definition"></a></dt>
+<dd><p>Test deleting a key from the cache.
+:return: None</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_lru_cache.test_get_key">
+<span class="sig-prename descclassname"><span class="pre">tests.test_lru_cache.</span></span><span class="sig-name descname"><span class="pre">test_get_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_lru_cache.html#test_get_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_lru_cache.test_get_key" title="Permalink to this definition"></a></dt>
+<dd><p>Test getting a key from the cache.
+:return: None</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_lru_cache.test_len">
+<span class="sig-prename descclassname"><span class="pre">tests.test_lru_cache.</span></span><span class="sig-name descname"><span class="pre">test_len</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_lru_cache.html#test_len"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_lru_cache.test_len" title="Permalink to this definition"></a></dt>
+<dd><p>Test getting the number of items in the cache.
+:return: None</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_lru_cache.test_lru_cache">
+<span class="sig-prename descclassname"><span class="pre">tests.test_lru_cache.</span></span><span class="sig-name descname"><span class="pre">test_lru_cache</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_lru_cache.html#test_lru_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_lru_cache.test_lru_cache" title="Permalink to this definition"></a></dt>
+<dd><p>Test the LRU cache basic functionalities.
+:return: 10 if pass, 0 if fail</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_lru_cache.test_remove_lru">
+<span class="sig-prename descclassname"><span class="pre">tests.test_lru_cache.</span></span><span class="sig-name descname"><span class="pre">test_remove_lru</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_lru_cache.html#test_remove_lru"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_lru_cache.test_remove_lru" title="Permalink to this definition"></a></dt>
+<dd><p>Test removing the least recently used item.
+:return: None</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_lru_cache.test_update_key">
+<span class="sig-prename descclassname"><span class="pre">tests.test_lru_cache.</span></span><span class="sig-name descname"><span class="pre">test_update_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_lru_cache.html#test_update_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_lru_cache.test_update_key" title="Permalink to this definition"></a></dt>
+<dd><p>Test update an existing key.
+:return: None</p>
+</dd></dl>
+
+</section>
+<section id="tests-test-put-key-module">
+<h2>tests.test_put_key module<a class="headerlink" href="#tests-test-put-key-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-tests.test_replication">
+<span id="tests-test-replication-module"></span><h2>tests.test_replication module<a class="headerlink" href="#module-tests.test_replication" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_replication.test_replication">
+<span class="sig-prename descclassname"><span class="pre">tests.test_replication.</span></span><span class="sig-name descname"><span class="pre">test_replication</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_replication.html#test_replication"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_replication.test_replication" title="Permalink to this definition"></a></dt>
+<dd><p>test the replication of the cache cluster
+a key-value pair should be replicated to all cache servers if there are more than 10 get requests for the key
+:return: 25 if pass, 0 if fail</p>
+</dd></dl>
+
+</section>
+<section id="module-tests.test_slowdb">
+<span id="tests-test-slowdb-module"></span><h2>tests.test_slowdb module<a class="headerlink" href="#module-tests.test_slowdb" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_slowdb.test_slowdb">
+<span class="sig-prename descclassname"><span class="pre">tests.test_slowdb.</span></span><span class="sig-name descname"><span class="pre">test_slowdb</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_slowdb.html#test_slowdb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_slowdb.test_slowdb" title="Permalink to this definition"></a></dt>
+<dd><p>Test the slowdb endpoints
+:return: 10 if pass, 0 if fail</p>
+</dd></dl>
+
+</section>
+<section id="module-tests">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tests" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="slowdb.html" class="btn btn-neutral float-left" title="slowdb module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, tianyuze.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
